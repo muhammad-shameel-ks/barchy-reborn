@@ -18,8 +18,11 @@ official=()
 aur=()
 
 for pkg in "$@"; do
-  if pacman -Slq 2>/dev/null | grep -qx "$pkg"; then
-    official+=("$pkg")
+  # Check if package exists in official repos (case-insensitive to be safe)
+  if pacman -Slq 2>/dev/null | grep -qix "$pkg"; then
+    # Get the actual name from the repo to ensure correct case for pacman -S
+    real_name=$(pacman -Slq 2>/dev/null | grep -ix "$pkg" | head -1)
+    official+=("$real_name")
   else
     aur+=("$pkg")
   fi

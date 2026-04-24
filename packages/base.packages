@@ -44,7 +44,6 @@ walker
 elephant
 
 # First Run & Security
-gum
 ufw
 reflector
 libqalculate
@@ -52,7 +51,7 @@ libqalculate
 # Dev Tools
 git
 github-cli
-nvim
+neovim
 lazygit
 mise
 jq
@@ -88,7 +87,7 @@ nautilus
 
 # Networking
 iwd
-NetworkManager
+networkmanager
 inetutils
 
 # Package Management
