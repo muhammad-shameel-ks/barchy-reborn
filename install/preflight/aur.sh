@@ -8,6 +8,11 @@ if ! command -v paru &>/dev/null; then
   # Ensure base-devel and git are present
   sudo pacman -S --noconfirm --needed base-devel git
 
+  # Keep sudo alive in the background
+  ( while true; do sudo -v; sleep 60; done ) &
+  SUDO_PID=$!
+  trap "kill $SUDO_PID 2>/dev/null || true" EXIT
+
   # Build paru from source in a temporary directory
   TEMP_DIR=$(mktemp -d)
   git clone https://aur.archlinux.org/paru-bin.git "$TEMP_DIR"
