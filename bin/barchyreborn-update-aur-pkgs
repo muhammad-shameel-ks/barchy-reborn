@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Update AUR packages via paru
+
+if pacman -Qem >/dev/null; then
+  if barchyreborn-pkg-aur-accessible; then
+    echo -e "\e[32m\nUpdate AUR packages\e[0m"
+    paru -Sua --noconfirm --cleanafter
+    echo
+  else
+    echo -e "\e[31m\nAUR is unavailable (so skipping AUR updates)\e[0m"
+    echo
+  fi
+fi

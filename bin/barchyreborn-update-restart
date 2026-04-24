@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Restart services or reboot after updates
+
+echo
+
+if find /usr/lib/modules -maxdepth 2 -name vmlinuz -newermt "$(uptime -s)" 2>/dev/null | grep -q .; then
+  gum confirm "Linux kernel has been updated. Reboot?" && barchyreborn-system-reboot
+elif [[ -f $HOME/.local/state/barchyreborn/reboot-required ]]; then
+  gum confirm "Updates require reboot. Ready?" && barchyreborn-system-reboot
+fi
+
+running_hyprland=$(readlink /proc/$(pgrep -x Hyprland)/exe 2>/dev/null)
+if [[ $running_hyprland == *"(deleted)"* ]]; then
+  gum confirm "Hyprland has been updated. Reboot?" && barchyreborn-system-reboot
+fi
+
+for file in "$HOME"/.local/state/barchyreborn/restart-*-required; do
+  if [[ -f $file ]]; then
+    filename=$(basename "$file")
+    service=$(echo "$filename" | sed 's/restart-\(.*\)-required/\1/')
+    echo "Restarting $service"
+    barchyreborn-state clear "$filename"
+    barchyreborn-restart-"$service"
+  fi
+done

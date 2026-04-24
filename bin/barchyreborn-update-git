@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Pull latest barchyreborn config from git
+
+set -e
+
+echo -e "\e[32mUpdate Barchyreborn\e[0m"
+
+barchyreborn-update-time
+
+# Suppress Hyprland config errors while git updates default config files mid-pull
+hyprctl keyword debug:suppress_errors true &>/dev/null || true
+
+git -C $BARCHYREBORN_PATH pull --autostash
+git -C $BARCHYREBORN_PATH --no-pager diff --check || git -C $BARCHYREBORN_PATH reset --merge
+
+hyprctl reload &>/dev/null || true

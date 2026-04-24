@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Run all migrations in the migrations/ directory
+
+MIGRATIONS_DIR="$BARCHYREBORN_PATH/migrations"
+
+if [[ -d $MIGRATIONS_DIR ]]; then
+  echo -e "\e[32m\nRunning migrations\e[0m"
+  for migration in "$MIGRATIONS_DIR"/*.sh; do
+    [[ -f $migration ]] || continue
+    echo "Running: $(basename "$migration")"
+    bash "$migration"
+  done
+fi

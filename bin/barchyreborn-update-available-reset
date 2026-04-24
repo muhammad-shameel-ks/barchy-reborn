@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Reset update available flag (called after successful update)
+
+rm -f "$HOME/.local/state/barchyreborn/update-available"
+echo "Update flag reset"

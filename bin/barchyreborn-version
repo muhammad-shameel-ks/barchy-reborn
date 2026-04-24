@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Show current version (latest git tag)
+
+BARCHYREBORN_PATH=${BARCHYREBORN_PATH:-$HOME/.local/share/barchyreborn}
+
+TAG=$(git -C "$BARCHYREBORN_PATH" describe --tags 2>/dev/null)
+if [[ -n $TAG ]]; then
+  echo "Barchyreborn $TAG"
+else
+  echo "Barchyreborn (unknown version)"
+fi

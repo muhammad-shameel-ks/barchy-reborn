@@ -8,7 +8,7 @@
 
   "modules-left": ["hyprland/workspaces", "hyprland/submap"],
   "modules-center": ["hyprland/window"],
-  "modules-right": ["tray", "clock", "battery", "network", "pulseaudio", "idle_inhibitor"],
+  "modules-right": ["tray", "custom/update", "clock", "battery", "network", "pulseaudio", "idle_inhibitor"],
 
   "hyprland/workspaces": {
     "disable-scroll": false,
@@ -53,5 +53,12 @@
       "activated": "󰒴",
       "deactivated": "󰒲"
     }
+  },
+
+  "custom/update": {
+    "exec": "barchyreborn-update-available",
+    "format": "󰑓 Update",
+    "tooltip-format": "Click to update barchyreborn",
+    "on-click": "barchyreborn-update"
   }
 }

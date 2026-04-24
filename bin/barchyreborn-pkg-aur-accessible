@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Check if AUR is accessible (used before AUR updates)
+
+curl -sf --connect-timeout 30 --retry 3 --retry-delay 3 -A "barchyreborn-update" \
+  "https://aur.archlinux.org" >/dev/null

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Perform all update steps after git pull
+
+set -e
+
+# Ensure screensaver/sleep doesn't kick in during updates
+hyprctl dispatch tagwindow +noidle &>/dev/null || true
+
+barchyreborn-migrate
+barchyreborn-update-system-pkgs
+barchyreborn-update-aur-pkgs
+barchyreborn-hook post-update
+
+barchyreborn-update-restart
+
+# Re-enable screensaver/sleep after updates
+hyprctl dispatch tagwindow -- -noidle &>/dev/null || true

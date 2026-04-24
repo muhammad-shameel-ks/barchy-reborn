@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Show the time since last update
+
+BARCHYREBORN_PATH=${BARCHYREBORN_PATH:-$HOME/.local/share/barchyreborn}
+
+LAST_UPDATE_FILE="$HOME/.local/state/barchyreborn/last-update"
+
+if [[ -f $LAST_UPDATE_FILE ]]; then
+  LAST_UPDATE=$(date -d "$(cat "$LAST_UPDATE_FILE")" +%s)
+  NOW=$(date +%s)
+  DAYS=$(( (NOW - LAST_UPDATE) / 86400 ))
+
+  if (( DAYS > 7 )); then
+    echo -e "\e[33mLast update: ${DAYS} days ago\e[0m"
+  elif (( DAYS > 0 )); then
+    echo -e "\e[32mLast update: ${DAYS} days ago\e[0m"
+  else
+    echo -e "\e[32mLast update: today\e[0m"
+  fi
+else
+  echo -e "\e[33mNo previous update recorded\e[0m"
+fi
+
+# Record this update
+mkdir -p "$(dirname "$LAST_UPDATE_FILE")"
+date >"$LAST_UPDATE_FILE"
