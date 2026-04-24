@@ -10,6 +10,30 @@ hyprctl dispatch tagwindow +noidle &>/dev/null || true
 barchyreborn-migrate
 barchyreborn-update-system-pkgs
 barchyreborn-update-aur-pkgs
+
+# Refresh binary permissions in case git pull reset them
+chmod +x "$BARCHYREBORN_PATH/bin"/* 2>/dev/null || true
+
+# Refresh config files from defaults
+echo -e "\e[32mRefreshing default configurations...\e[0m"
+# Deploy .bashrc if it changed
+cp "$BARCHYREBORN_PATH/default/bashrc" "$HOME/.bashrc" 2>/dev/null || true
+# Deploy Hyprland structure
+mkdir -p "$HOME/.config/hypr/configs"
+cp "$BARCHYREBORN_PATH/default/hypr/hyprland.conf" "$HOME/.config/hypr/" 2>/dev/null || true
+cp "$BARCHYREBORN_PATH/default/hypr/input.conf" "$HOME/.config/hypr/" 2>/dev/null || true
+cp "$BARCHYREBORN_PATH/default/hypr/looknfeel.conf" "$HOME/.config/hypr/" 2>/dev/null || true
+cp "$BARCHYREBORN_PATH/default/hypr/configs/"* "$HOME/.config/hypr/configs/" 2>/dev/null || true
+# Deploy services
+mkdir -p "$HOME/.config/waybar" "$HOME/.config/mako" "$HOME/.config/walker" "$HOME/.config/elephant/menus"
+cp "$BARCHYREBORN_PATH/default/waybar/config" "$HOME/.config/waybar/" 2>/dev/null || true
+cp "$BARCHYREBORN_PATH/default/mako/core.ini" "$HOME/.config/mako/" 2>/dev/null || true
+cp "$BARCHYREBORN_PATH/default/walker/config.toml" "$HOME/.config/walker/" 2>/dev/null || true
+cp "$BARCHYREBORN_PATH/default/elephant/menus/barchyreborn_themes.lua" "$HOME/.config/elephant/menus/" 2>/dev/null || true
+
+# Re-apply theme to generate CSS
+barchyreborn-theme-refresh
+
 barchyreborn-hook post-update
 
 barchyreborn-update-restart
