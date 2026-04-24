@@ -35,7 +35,14 @@ if [[ -f $COLORS_FILE ]]; then
 
   for tpl in "$USER_TEMPLATES_DIR"/*.tpl "$TEMPLATES_DIR"/*.tpl; do
     filename=$(basename "$tpl" .tpl)
-    output_path="$NEXT_THEME_DIR/$filename"
+    
+    # Special case: hyprland.conf tpl goes to themes/current.conf
+    if [[ $filename == "hyprland.conf" ]]; then
+        output_path="$HOME/.config/hypr/themes/current.conf"
+        mkdir -p "$(dirname "$output_path")"
+    else
+        output_path="$NEXT_THEME_DIR/$filename"
+    fi
 
     if [[ ! -f $output_path ]]; then
       sed -f "$sed_script" "$tpl" >"$output_path"
