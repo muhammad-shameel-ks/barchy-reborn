@@ -124,7 +124,8 @@ run_logged() {
 
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting: $script" >>"$BARCHYREBORN_INSTALL_LOG_FILE"
 
-  bash -c "source '$script'" </dev/null >>"$BARCHYREBORN_INSTALL_LOG_FILE" 2>&1
+  # Ensure BARCHYREBORN variables are available in the subshell
+  bash -c "export BARCHYREBORN_PATH='$BARCHYREBORN_PATH'; export BARCHYREBORN_INSTALL='$BARCHYREBORN_INSTALL'; source '$script'" </dev/null >>"$BARCHYREBORN_INSTALL_LOG_FILE" 2>&1
 
   local exit_code=$?
 
