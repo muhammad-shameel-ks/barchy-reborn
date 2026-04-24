@@ -1,0 +1,112 @@
+@define-color selected-text #cce0f5;
+@define-color text #cce0f5;
+@define-color base #0d1017;
+@define-color border #89b4f8;
+@define-color foreground #cce0f5;
+@define-color background #0d1017;
+@define-color hover #1a1b26;
+@define-color accent #89b4f8;
+
+window {
+  background: transparent;
+  border-radius: 10px; 
+}
+
+.box-wrapper {
+  border-radius: 28px;
+}
+
+child:selected {
+  border-radius: 10px;
+  background-color: alpha(@hover, 0.16);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+  transition: background-color 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+child:selected .item-box {
+  transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateX(6px);
+}
+
+child:selected .item-box * {
+  color: @text;
+}
+
+window .search-container,
+window .search {
+  background: alpha(@hover, 0.6);
+  color: @foreground;
+  border: 1px solid alpha(@border, 0.5);
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin: 4px 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+window .search:focus {
+  border-color: @border;
+  outline: none;
+}
+
+window .bar,
+window .scroll,
+window .list {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+window child {
+  background: transparent;
+  color: @text;
+  border: none;
+  border-radius: 10px; 
+  padding: 4px 10px; 
+  transition: all 0.2s ease;
+}
+
+window child:selected,
+window child:focus,
+window child:checked {
+background: alpha(@hover, 0.4);
+  color: @selected-text;
+  font-weight: 600;
+  transform: translateX(2px);
+}
+
+window child:active {
+  background: @border;
+  color: @background;
+  transform: scale(0.98);
+}
+
+window .item-box .title {
+  color: @foreground;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+window child:selected .title,
+window child:focus .title,
+window child:checked .title {
+  color: @selected-text;
+  font-weight: 600;
+}
+
+window .item-box .subtitle {
+  color: alpha(@text, 0.7);
+  font-size: 11px;
+}
+
+window child:selected .subtitle,
+window child:focus .subtitle,
+window child:checked .subtitle {
+  color: alpha(@selected-text, 0.8);
+}
+
+window .item-box .icon {
+  margin-right: 12px;
+  -gtk-icon-size: 20px;
+}

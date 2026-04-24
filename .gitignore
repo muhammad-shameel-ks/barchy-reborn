@@ -20,11 +20,9 @@ Thumbs.db
 *~
 
 # Installed barchyreborn (don't track user config)
-config/
-current/
-themes/
-backgrounds/
-hooks/
+/current/
+/backgrounds/
+/hooks/
 
 # Systemd
 /etc/sddm.conf
