@@ -40,8 +40,8 @@ fzf
 
 # Terminal & Launcher
 alacritty
-walker
-elephant
+walker-bin
+elephant-bin
 
 # First Run & Security
 ufw
