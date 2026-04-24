@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# barchyreborn-pkg-present: Check if a package IS installed
+# Usage: barchyreborn-pkg-present package
+# Returns exit code 0 if installed, 1 if missing
+
+if [[ -z $1 ]]; then
+  exit 1
+fi
+
+if pacman -Qq "$1" 2>/dev/null | grep -qx "$1"; then
+  exit 0
+else
+  exit 1
+fi

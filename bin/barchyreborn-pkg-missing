@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# barchyreborn-pkg-missing: Check if a package is NOT installed
+# Usage: barchyreborn-pkg-missing package
+# Returns exit code 0 if missing, 1 if installed
+
+if [[ -z $1 ]]; then
+  exit 1
+fi
+
+if pacman -Qq "$1" 2>/dev/null | grep -qx "$1"; then
+  exit 1
+else
+  exit 0
+fi

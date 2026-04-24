@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# barchyreborn-cmd-present: Check if a command IS available
+# Usage: barchyreborn-cmd-present command
+# Returns exit code 0 if present, 1 if missing
+
+if [[ -z $1 ]]; then
+  exit 1
+fi
+
+if command -v "$1" &>/dev/null; then
+  exit 0
+else
+  exit 1
+fi

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# barchyreborn-pkg-add: Install packages (paru for AUR, pacman for official)
+# Usage: barchyreborn-pkg-add package1 package2 ...
+
+if (( $# == 0 )); then
+  exit 0
+fi
+
+# Check if running as root
+if (( EUID == 0 )); then
+  echo "Error: barchyreborn-pkg-add should not be run as root"
+  exit 1
+fi
+
+# Separate official packages from AUR packages
+official=()
+aur=()
+
+for pkg in "$@"; do
+  if pacman -Slq 2>/dev/null | grep -qx "$pkg"; then
+    official+=("$pkg")
+  else
+    aur+=("$pkg")
+  fi
+done
+
+# Install official packages with pacman
+if (( ${#official[@]} > 0 )); then
+  sudo pacman -S --noconfirm --needed "${official[@]}"
+fi
+
+# Install AUR packages with paru
+if (( ${#aur[@]} > 0 )); then
+  paru -S --noconfirm --needed "${aur[@]}"
+fi

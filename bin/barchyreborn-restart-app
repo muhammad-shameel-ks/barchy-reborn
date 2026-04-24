@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# barchyreborn-restart-app: Restart any application by name
+# Usage: barchyreborn-restart-app <process-name>
+
+if [[ -z $1 ]]; then
+  exit 1
+fi
+
+pkill -x "$1" 2>/dev/null || true
+sleep 0.1
+
+case "$1" in
+waybar)
+  waybar &
+  ;;
+esac

@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# barchyreborn-theme-set: Set the active theme
+# Usage: barchyreborn-theme-set <theme-name>
+
+if [[ -z $1 ]]; then
+  echo "Usage: barchyreborn-theme-set <theme-name>"
+  exit 1
+fi
+
+CURRENT_THEME_PATH="$HOME/.config/barchyreborn/current/theme"
+NEXT_THEME_PATH="$HOME/.config/barchyreborn/current/next-theme"
+USER_THEMES_PATH="$HOME/.config/barchyreborn/themes"
+BARCHYREBORN_THEMES_PATH="$BARCHYREBORN_PATH/themes"
+
+THEME_NAME=$(echo "$1" | sed -E 's/<[^>]+>//g' | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+
+# Also check omarchy themes for compatibility
+if [[ -d "$HOME/.config/omarchy/themes/$THEME_NAME" ]]; then
+  THEME_SOURCE="$HOME/.config/omarchy/themes/$THEME_NAME"
+elif [[ -d "$BARCHYREBORN_THEMES_PATH/$THEME_NAME" ]]; then
+  THEME_SOURCE="$BARCHYREBORN_THEMES_PATH/$THEME_NAME"
+elif [[ -d "$USER_THEMES_PATH/$THEME_NAME" ]]; then
+  THEME_SOURCE="$USER_THEMES_PATH/$THEME_NAME"
+else
+  echo "Theme '$THEME_NAME' does not exist"
+  exit 1
+fi
+
+# Setup clean next theme directory (atomic swap)
+rm -rf "$NEXT_THEME_PATH"
+mkdir -p "$NEXT_THEME_PATH"
+
+# Copy official theme first, then overlay user customizations
+cp -r "$THEME_SOURCE/"* "$NEXT_THEME_PATH/" 2>/dev/null
+
+# Generate dynamic configs from templates
+barchyreborn-theme-set-templates
+
+# Swap next theme as current
+rm -rf "$CURRENT_THEME_PATH"
+mv "$NEXT_THEME_PATH" "$CURRENT_THEME_PATH"
+
+# Store theme name
+echo "$THEME_NAME" >"$HOME/.config/barchyreborn/current/theme.name"
+
+# Change background with theme
+barchyreborn-theme-bg-next
+
+# Restart components to apply new theme
+if pgrep -x waybar >/dev/null; then
+  barchyreborn-restart-waybar
+fi
+barchyreborn-restart-mako
+barchyreborn-restart-terminal
+barchyreborn-restart-btop
+
+# Call hook
+barchyreborn-hook theme-set "$THEME_NAME"

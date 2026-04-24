@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# barchyreborn-theme-bg-set: Set a specific image as background
+# Usage: barchyreborn-theme-bg-set <path-to-image>
+
+if [[ -z $1 ]]; then
+  echo "Usage: barchyreborn-theme-bg-set <path-to-image>" >&2
+  exit 1
+fi
+
+BACKGROUND="$1"
+CURRENT_BACKGROUND_LINK="$HOME/.config/barchyreborn/current/background"
+
+ln -nsf "$BACKGROUND" "$CURRENT_BACKGROUND_LINK"
+
+pkill -x swaybg
+setsid uwsm-app -- swaybg -i "$CURRENT_BACKGROUND_LINK" -m fill >/dev/null 2>&1 &

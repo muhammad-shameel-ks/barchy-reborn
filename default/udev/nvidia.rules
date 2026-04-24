@@ -1,0 +1,4 @@
+# Barchyreborn udev rules
+
+# GPU rules - nvidia
+ACTION=="add", SUBSYSTEM==" pci", ATTR{vendor}=="0x10de", RUN+="/usr/bin/nvidia-smi"

@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# barchyreborn-theme-install: Install a theme from a git repo
+# Usage: barchyreborn-theme-install <git-repo-url>
+# Works with both omarchy and barchyreborn theme repos
+
+if [[ -z $1 ]]; then
+  echo -e "See https://github.com/YOUR_GITHUB_USERNAME/barchyreborn for theme docs\n"
+  REPO_URL=$(gum input --placeholder="Git repo URL for theme" --header="")
+else
+  REPO_URL="$1"
+fi
+
+if [[ -z $REPO_URL ]]; then
+  exit 1
+fi
+
+THEMES_DIR="$HOME/.config/barchyreborn/themes"
+THEME_NAME=$(basename "$REPO_URL" .git | sed -E 's/^(omarchy|barchyreborn)-//; s/-theme$//' | tr '[:upper:]' '[:lower:]')
+THEME_PATH="$THEMES_DIR/$THEME_NAME"
+
+# Remove existing theme if present
+if [[ -d $THEME_PATH ]]; then
+  rm -rf "$THEME_PATH"
+fi
+
+# Clone the repo
+if ! git clone "$REPO_URL" "$THEME_PATH"; then
+  echo "Error: Failed to clone theme repo."
+  exit 1
+fi
+
+# Apply the new theme
+barchyreborn-theme-set $THEME_NAME

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# barchyreborn-theme-refresh: Re-generate templates for current theme
+
+THEME_NAME_PATH="$HOME/.config/barchyreborn/current/theme.name"
+
+if [[ -f $THEME_NAME_PATH ]]; then
+  barchyreborn-theme-set "$(cat $THEME_NAME_PATH)"
+fi

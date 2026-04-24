@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Package files
+*.tar.gz
+*.pkg.tar.zst
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+*~
+
+# Installed barchyreborn (don't track user config)
+config/
+current/
+themes/
+backgrounds/
+hooks/
+
+# Systemd
+/etc/sddm.conf
+/etc/plymouth/
+/etc/pacman.d/hooks/ldconfig.hook
+
+# Local state
+.local/share/barchyreborn/
+.config/barchyreborn/
+
+# Mirror and release files
+*.pkg.tar.zst
+*.pkg.tar.zst.sig

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Restart btop
+
+if pgrep -x btop >/dev/null; then
+  pkill -x btop
+  sleep 0.2
+fi
+
+if command -v btop &>/dev/null; then
+  btop &
+fi

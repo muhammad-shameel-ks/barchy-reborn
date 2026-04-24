@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# barchyreborn-theme-remove: Remove a user-installed theme
+# Usage: barchyreborn-theme-remove <theme-name>
+
+if [[ -z $1 ]]; then
+  echo "Usage: barchyreborn-theme-remove <theme-name>"
+  exit 1
+fi
+
+THEME_NAME=$(echo "$1" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+THEME_PATH="$HOME/.config/barchyreborn/themes/$THEME_NAME"
+
+if [[ -d $THEME_PATH ]]; then
+  rm -rf "$THEME_PATH"
+  echo "Theme '$THEME_NAME' removed"
+else
+  echo "Theme '$THEME_NAME' not found in user themes"
+  exit 1
+fi

@@ -1,0 +1,98 @@
+# Barchyreborn base package list
+
+# Window Manager & Core Hyprland
+hyprland
+hyprlock
+hypridle
+hyprland-guiutils
+waybar
+mako
+swaybg
+uwsm
+
+# Display Manager & Auth
+sddm
+plymouth
+polkit-gnome
+
+# Audio
+pipewire
+pipewire-pulse
+wireplumber
+alsa-utils
+
+# Fonts & Icons
+fontconfig
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+ttf-jetbrains-mono-nerd
+
+# Shell & CLI Tools
+bash-completion
+gum
+starship
+ripgrep
+bat
+eza
+fd
+fzf
+
+# Terminal & Launcher
+alacritty
+wofi
+
+# Dev Tools
+git
+github-cli
+nvim
+lazygit
+mise
+jq
+ Starship
+
+# Screenshots & Clipboard
+slurp
+grim
+wl-clipboard
+imv
+
+# Media
+mpv
+vlc
+
+# Wayland / Qt
+qt5-wayland
+qt6-wayland
+xdg-desktop-portal-hyprland
+xdg-desktop-portal-gtk
+
+# System Utilities
+brightnessctl
+pamixer
+playerctl
+inxi
+tree
+less
+unzip
+wget
+
+# File Manager
+nautilus
+
+# Networking
+iwd
+NetworkManager
+inetutils
+
+# Package Management
+paru
+
+# AUR Helpers / Build tools
+base-devel
+
+# Optional but common
+fastfetch
+btop
+tmux
+zoxide

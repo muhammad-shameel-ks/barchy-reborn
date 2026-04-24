@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# barchyreborn-theme-list: List all available themes
+
+{
+  find ~/.config/barchyreborn/themes/ -mindepth 1 -maxdepth 1 \( -type d -o -type l \) -printf '%f\n'
+  find "$BARCHYREBORN_PATH/themes/" -mindepth 1 -maxdepth 1 -type d -printf '%f\n'
+  find ~/.config/omarchy/themes/ -mindepth 1 -maxdepth 1 -type d -printf '%f\n'
+} | sort -u | while read -r name; do
+  echo "$name" | sed -E 's/(^|-)([a-z])/\1\u\2/g; s/-/ /g'
+done

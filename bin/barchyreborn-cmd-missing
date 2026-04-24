@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# barchyreborn-cmd-missing: Check if a command is NOT available
+# Usage: barchyreborn-cmd-missing command
+# Returns exit code 0 if missing, 1 if present
+
+if [[ -z $1 ]]; then
+  exit 1
+fi
+
+if command -v "$1" &>/dev/null; then
+  exit 1
+else
+  exit 0
+fi
