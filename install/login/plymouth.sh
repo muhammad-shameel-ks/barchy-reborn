@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Plymouth setup
-archyreborn-pkg-add plymouth
+barchyreborn-pkg-add plymouth
 
 sudo cp -f "$BARCHYREBORN_PATH/default/plymouth/plymouthd.conf" /etc/plymouth/plymouthd.conf 2>/dev/null || true
 sudo mkdir -p /etc/dracut.conf.d

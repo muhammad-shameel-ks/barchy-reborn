@@ -1,0 +1,45 @@
+@import "../../../../../../../.config/barchyreborn/current/theme/walker.css";
+
+* {
+  all: unset;
+}
+
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 14px;
+  color: @text;
+}
+
+scrollbar {
+  opacity: 0;
+}
+
+.box-wrapper {
+  background: alpha(@base, 0.9);
+  padding: 15px;
+  border: 1px solid @border;
+  border-radius: 8px;
+}
+
+.search-container {
+  background: @base;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.item-box {
+  padding: 8px;
+  border-radius: 4px;
+}
+
+child:selected .item-box {
+  background: @accent;
+}
+
+child:selected .item-box * {
+  color: @base;
+}
+
+.item-image {
+  margin-right: 12px;
+}
