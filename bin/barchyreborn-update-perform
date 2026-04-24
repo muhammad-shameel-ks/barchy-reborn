@@ -27,7 +27,6 @@ cp "$BARCHYREBORN_PATH/default/hypr/configs/"* "$HOME/.config/hypr/configs/" 2>/
 # Deploy services
 mkdir -p "$HOME/.config/waybar" "$HOME/.config/mako" "$HOME/.config/walker" "$HOME/.config/elephant/menus"
 cp "$BARCHYREBORN_PATH/default/waybar/config" "$HOME/.config/waybar/" 2>/dev/null || true
-cp "$BARCHYREBORN_PATH/default/mako/core.ini" "$HOME/.config/mako/" 2>/dev/null || true
 cp "$BARCHYREBORN_PATH/default/walker/config.toml" "$HOME/.config/walker/" 2>/dev/null || true
 cp "$BARCHYREBORN_PATH/default/elephant/menus/barchyreborn_themes.lua" "$HOME/.config/elephant/menus/" 2>/dev/null || true
 

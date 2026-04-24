@@ -1,10 +1,11 @@
 --
--- Dynamic Barchyreborn Theme Menu for Elephant/Walker
+-- Dynamic Omarchy Theme Menu for Elephant/Walker
 --
-Name = "barchyrebornthemes"
-NamePretty = "Barchy Themes"
+Name = "omarchythemes"
+NamePretty = "Omarchy Themes"
 HideFromProviderlist = true
 
+-- Check if file exists using Lua (no subprocess)
 local function file_exists(path)
   local f = io.open(path, "r")
   if f then
@@ -14,6 +15,7 @@ local function file_exists(path)
   return false
 end
 
+-- Get first matching file from directory using ls (single call for fallback)
 local function first_image_in_dir(dir)
   local handle = io.popen("ls -1 '" .. dir .. "' 2>/dev/null | head -n 1")
   if handle then
@@ -26,6 +28,7 @@ local function first_image_in_dir(dir)
   return nil
 end
 
+-- Find preview.png, preview.jpg, or first backgrounds/ image in a theme dir
 local function find_preview_path(dir)
   local png = dir .. "/preview.png"
   local jpg = dir .. "/preview.jpg"
@@ -34,22 +37,31 @@ local function find_preview_path(dir)
   return first_image_in_dir(dir .. "/backgrounds")
 end
 
+-- The main function elephant will call
 function GetEntries()
   local entries = {}
-  local user_theme_dir = os.getenv("HOME") .. "/.config/barchyreborn/themes"
-  local barchy_path = os.getenv("BARCHYREBORN_PATH") or ""
-  local default_theme_dir = barchy_path .. "/themes"
+  local user_theme_dir = os.getenv("HOME") .. "/.config/omarchy/themes"
+  local omarchy_path = os.getenv("OMARCHY_PATH") or ""
+  local default_theme_dir = omarchy_path .. "/themes"
 
   local seen_themes = {}
 
+  -- Helper function to process themes from a directory
   local function process_themes_from_dir(theme_dir)
+    -- Single find call to get all theme directories
     local handle = io.popen("find -L '" .. theme_dir .. "' -mindepth 1 -maxdepth 1 -type d 2>/dev/null")
-    if not handle then return end
+    if not handle then
+      return
+    end
 
     for theme_path in handle:lines() do
       local theme_name = theme_path:match(".*/(.+)$")
+
       if theme_name and not seen_themes[theme_name] then
         seen_themes[theme_name] = true
+
+        -- Check the theme dir, then fall back to the default theme dir
+        -- (for partial user customizations that don't ship a preview)
         local preview_path = find_preview_path(theme_path)
           or find_preview_path(default_theme_dir .. "/" .. theme_name)
 
@@ -58,6 +70,7 @@ function GetEntries()
           display_name = display_name:gsub("(%a)([%w_']*)", function(first, rest)
             return first:upper() .. rest:lower()
           end)
+          display_name = display_name .. "  "
 
           table.insert(entries, {
             Text = display_name,
@@ -70,10 +83,13 @@ function GetEntries()
         end
       end
     end
+
     handle:close()
   end
 
+  -- Process user themes first (they take precedence)
   process_themes_from_dir(user_theme_dir)
+  -- Then process default themes (only if not already seen)
   process_themes_from_dir(default_theme_dir)
 
   return entries
