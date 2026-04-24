@@ -11,6 +11,8 @@ export PATH="$BARCHYREBORN_PATH/bin:$PATH"
 
 # Install
 source "$BARCHYREBORN_INSTALL/helpers/all.sh"
+start_install_log
+
 source "$BARCHYREBORN_INSTALL/preflight/all.sh"
 source "$BARCHYREBORN_INSTALL/packaging/all.sh"
 source "$BARCHYREBORN_INSTALL/config/all.sh"

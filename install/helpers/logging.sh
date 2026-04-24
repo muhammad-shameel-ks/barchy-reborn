@@ -52,10 +52,17 @@ stop_log_output() {
 }
 
 start_install_log() {
-  sudo touch "$BARCHYREBORN_INSTALL_LOG_FILE"
-  sudo chmod 666 "$BARCHYREBORN_INSTALL_LOG_FILE"
+  if [[ ! -f "$BARCHYREBORN_INSTALL_LOG_FILE" ]]; then
+    sudo touch "$BARCHYREBORN_INSTALL_LOG_FILE"
+    sudo chmod 666 "$BARCHYREBORN_INSTALL_LOG_FILE"
+  fi
 
   export BARCHYREBORN_START_TIME=$(date '+%Y-%m-%d %H:%M:%S')
+
+  # Ensure we have permission to write
+  if [[ ! -w "$BARCHYREBORN_INSTALL_LOG_FILE" ]]; then
+    sudo chmod 666 "$BARCHYREBORN_INSTALL_LOG_FILE"
+  fi
 
   echo "=== Barchyreborn Installation Started: $BARCHYREBORN_START_TIME ===" >>"$BARCHYREBORN_INSTALL_LOG_FILE"
   start_log_output

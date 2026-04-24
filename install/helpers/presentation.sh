@@ -2,6 +2,32 @@
 
 # Barchyreborn presentation utilities
 
+# Fallback for gum if not yet installed
+if ! command -v gum &>/dev/null; then
+  gum() {
+    case "$1" in
+      style)
+        shift
+        while [[ "$1" == --* ]]; do
+          [[ "$1" == "--padding" || "$1" == "--foreground" || "$1" == "--border" ]] && shift
+          shift
+        done
+        echo -e "$*"
+        ;;
+      confirm)
+        shift
+        echo -n "$* [y/N] "
+        read -r response
+        [[ "$response" =~ ^[Yy]$ ]]
+        ;;
+      choose)
+        echo "Error: gum is required for selection but not installed yet." >&2
+        exit 1
+        ;;
+    esac
+  }
+fi
+
 LOGO_WIDTH=78
 LOGO_HEIGHT=10
 PADDING_LEFT=42
