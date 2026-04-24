@@ -14,6 +14,8 @@ if ! command -v paru &>/dev/null; then
   
   (
     cd "$TEMP_DIR"
+    # Set MAKEFLAGS to use all available cores for faster building
+    export MAKEFLAGS="-j$(nproc)"
     makepkg -si --noconfirm
   )
   
