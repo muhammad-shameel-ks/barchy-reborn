@@ -1,64 +1,95 @@
-# Waybar configuration
-
 {
   "layer": "top",
   "position": "top",
-  "height": 30,
-  "spacing": 10,
+  "height": 34,
+  "margin-top": 5,
+  "margin-left": 10,
+  "margin-right": 10,
+  "spacing": 4,
 
-  "modules-left": ["hyprland/workspaces", "hyprland/submap"],
-  "modules-center": ["hyprland/window"],
-  "modules-right": ["tray", "custom/update", "clock", "battery", "network", "pulseaudio", "idle_inhibitor"],
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/submap"
+  ],
+  "modules-center": [
+    "hyprland/window"
+  ],
+  "modules-right": [
+    "tray",
+    "custom/update",
+    "pulseaudio",
+    "network",
+    "battery",
+    "clock"
+  ],
 
   "hyprland/workspaces": {
-    "disable-scroll": false,
+    "disable-scroll": true,
     "all-outputs": true,
-    "on-click": "activate"
+    "on-click": "activate",
+    "format": "{name}",
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": []
+    }
+  },
+
+  "hyprland/window": {
+    "format": "󱂬 {title}",
+    "max-length": 50,
+    "separate-outputs": true
   },
 
   "tray": {
-    "icon-size": 16,
+    "icon-size": 18,
     "spacing": 10
   },
 
   "clock": {
-    "format": "{:%H:%M}",
-    "tooltip-format": "{:%Y-%m-%d %a}"
+    "format": " {:%H:%M}",
+    "format-alt": "󰃭 {:%Y-%m-%d}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
 
   "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
     "format": "{icon} {capacity}%",
-    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-    "tooltip-format": "{time}"
+    "format-charging": "󱐋 {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
   },
 
   "network": {
-    "format-wifi": "󰤨 {signalStrength}%",
-    "format-ethernet": "󰈀 {ip}",
-    "tooltip-format": "{ip}"
+    "format-wifi": "󰤨 {essid}",
+    "format-ethernet": "󰈀 {ifname}",
+    "format-linked": "󰈀 {ifname} (No IP)",
+    "format-disconnected": "󰤮 Disconnected",
+    "tooltip-format-wifi": "{signalStrength}% Speed: {bandwidthDownBits}",
+    "on-click": "alacritty -e nmtui"
   },
 
   "pulseaudio": {
     "format": "{icon} {volume}%",
+    "format-muted": "󰝟 Muted",
     "format-icons": {
       "headphone": "󰛰",
       "hands-free": "󰏈",
+      "headset": "󰋎",
       "default": ["󰕿", "󰖀", "󰕾"]
-    }
-  },
-
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-      "activated": "󰒴",
-      "deactivated": "󰒲"
-    }
+    },
+    "on-click": "pamixer -t",
+    "on-click-right": "pavucontrol"
   },
 
   "custom/update": {
     "exec": "barchyreborn-update-available",
-    "format": "󰑓 Update",
-    "tooltip-format": "Click to update barchyreborn",
+    "return-type": "json",
+    "format": "󰑓 {}",
+    "interval": 3600,
     "on-click": "barchyreborn-update"
   }
 }

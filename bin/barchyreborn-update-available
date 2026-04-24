@@ -17,9 +17,11 @@ if [[ -z $current_tag ]]; then
 fi
 
 if [[ $current_tag != $latest_tag ]]; then
-  echo "Barchyreborn update available ($latest_tag)"
+  # JSON output for waybar
+  printf '{"text": "Update Available (%s)", "alt": "update", "tooltip": "Click to update to %s", "class": "update-available"}\n' "$latest_tag" "$latest_tag"
   exit 0
 else
-  echo "Barchyreborn is up to date ($current_tag)"
+  # Empty JSON for waybar (hides the module if empty string)
+  echo '{"text": "", "alt": "", "tooltip": "", "class": ""}'
   exit 1
 fi
