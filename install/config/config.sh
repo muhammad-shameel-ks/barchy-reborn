@@ -12,6 +12,7 @@ DEFAULT_CONFIGS=(
   "udev"
   "walker"
   "elephant"
+  "pacman"
 )
 
 for cfg in "${DEFAULT_CONFIGS[@]}"; do
