@@ -21,8 +21,15 @@ if ! command -v gum &>/dev/null; then
         [[ "$response" =~ ^[Yy]$ ]]
         ;;
       choose)
-        echo "Error: gum is required for selection but not installed yet." >&2
-        exit 1
+        shift
+        # Return first option as default if gum is missing
+        local header=""
+        while [[ "$1" == --* ]]; do
+          if [[ "$1" == "--header" ]]; then header="$2"; shift; fi
+          shift
+        done
+        echo "$header (gum missing, picking first option: $1)" >&2
+        echo "$1"
         ;;
     esac
   }

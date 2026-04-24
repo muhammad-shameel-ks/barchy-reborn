@@ -32,5 +32,11 @@ fi
 
 # Install AUR packages with paru
 if (( ${#aur[@]} > 0 )); then
-  paru -S --noconfirm --needed "${aur[@]}"
+  if command -v paru &>/dev/null; then
+    paru -S --noconfirm --needed "${aur[@]}"
+  else
+    echo "Warning: paru not found. Cannot install AUR packages: ${aur[*]}" >&2
+    # If we are bootstrapping, we might want to install paru here, 
+    # but for now we just warn to avoid hard failures during base install.
+  fi
 fi
