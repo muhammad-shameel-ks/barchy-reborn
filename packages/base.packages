@@ -92,6 +92,7 @@ inetutils
 
 # Package Management
 yay-bin
+paru-bin
 
 # AUR Helpers / Build tools
 base-devel
