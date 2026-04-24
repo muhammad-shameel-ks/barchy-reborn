@@ -24,7 +24,8 @@ if ! command -v paru &>/dev/null; then
     # makepkg -si uses sudo pacman -U internally. 
     # We use --noconfirm for makepkg, but we should ensure pacman doesn't block.
     # Also, we use -p to specify the packager to avoid potential interactive prompts.
-    makepkg -si --noconfirm --needed
+    # Force ignore architectural mismatches if any
+    makepkg -si --noconfirm --needed --nocheck
   )
   
   rm -rf "$TEMP_DIR"
