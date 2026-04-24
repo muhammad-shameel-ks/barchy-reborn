@@ -147,7 +147,7 @@ Barchyreborn is a minimal omarchy fork — a lightweight Arch Linux Hyprland set
 
 ## Known Gaps / TODO
 
-- [ ] Replace all `YOUR_GITHUB_USERNAME` placeholders with actual username
+- [x] Replace all `YOUR_GITHUB_USERNAME` placeholders with actual username
 - [ ] Hyprlock config not yet written (lockscreen)
 - [ ] Hypridle config not yet written (idle management)
 - [ ] Waybar style.css uses placeholder `{{ variables }}` but needs full theme variable coverage

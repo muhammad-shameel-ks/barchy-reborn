@@ -71,7 +71,7 @@ catch_errors() {
   gum style "This command halted with exit code $exit_code:"
   show_failed_script_or_command
 
-  gum style "Get help or report issues at: https://github.com/YOUR_GITHUB_USERNAME/barchyreborn"
+  gum style "Get help or report issues at: https://github.com/muhammad-shameel-ks/barchy-reborn"
 
   while true; do
     options=()

@@ -5,7 +5,7 @@
 # Works with both omarchy and barchyreborn theme repos
 
 if [[ -z $1 ]]; then
-  echo -e "See https://github.com/YOUR_GITHUB_USERNAME/barchyreborn for theme docs\n"
+  echo -e "See https://github.com/muhammad-shameel-ks/barchy-reborn for theme docs\n"
   REPO_URL=$(gum input --placeholder="Git repo URL for theme" --header="")
 else
   REPO_URL="$1"

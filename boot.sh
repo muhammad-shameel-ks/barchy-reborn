@@ -25,7 +25,7 @@ BARCHYREBORN_REF="${BARCHYREBORN_REF:-master}"
 sudo pacman -Syu --noconfirm --needed git
 
 # Use custom repo if specified
-BARCHYREBORN_REPO="${BARCHYREBORN_REPO:-YOUR_GITHUB_USERNAME/barchyreborn}"
+BARCHYREBORN_REPO="${BARCHYREBORN_REPO:-muhammad-shameel-ks/barchy-reborn}"
 
 echo -e "\nCloning Barchyreborn from: https://github.com/${BARCHYREBORN_REPO}.git"
 rm -rf ~/.local/share/barchyreborn/
