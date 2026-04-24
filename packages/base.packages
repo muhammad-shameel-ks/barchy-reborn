@@ -91,7 +91,7 @@ networkmanager
 inetutils
 
 # Package Management
-paru-bin
+yay-bin
 
 # AUR Helpers / Build tools
 base-devel
