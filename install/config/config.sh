@@ -10,6 +10,8 @@ DEFAULT_CONFIGS=(
   "sddm"
   "plymouth"
   "udev"
+  "walker"
+  "elephant"
 )
 
 for cfg in "${DEFAULT_CONFIGS[@]}"; do
