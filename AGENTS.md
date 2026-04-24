@@ -2,6 +2,9 @@
 
 This document is the context file for any AI agent working on barchyreborn. It defines coding standards, naming conventions, command structure, and current project status.
 
+**Reference Source:**
+The original version of this project is in `/mnt/newvolume/Dev/barchyreborn/omarchy/`. ALWAYS check that directory for reference implementations, logic, or missing files when adding new features or troubleshooting. Barchyreborn aims to maintain architectural compatibility with Omarchy while being leaner.
+
 ---
 
 # Style

@@ -21,18 +21,7 @@ echo -e "\n$ansi_art\n"
 # Use custom branch if instructed, otherwise default to master
 BARCHYREBORN_REF="${BARCHYREBORN_REF:-master}"
 
-# Set mirror based on branch (if you have your own package repo)
-if [[ $BARCHYREBORN_REF == "dev" ]]; then
-  export BARCHYREBORN_MIRROR=edge
-  echo 'Server = https://mirror.barchyreborn.org/$repo/os/$arch' | sudo tee /etc/pacman.d/mirrorlist >/dev/null
-elif [[ $BARCHYREBORN_REF == "rc" ]]; then
-  export BARCHYREBORN_MIRROR=rc
-  echo 'Server = https://rc-mirror.barchyreborn.org/$repo/os/$arch' | sudo tee /etc/pacman.d/mirrorlist >/dev/null
-else
-  export BARCHYREBORN_MIRROR=stable
-  echo 'Server = https://stable-mirror.barchyreborn.org/$repo/os/$arch' | sudo tee /etc/pacman.d/mirrorlist >/dev/null
-fi
-
+# Update system before starting
 sudo pacman -Syu --noconfirm --needed git
 
 # Use custom repo if specified
