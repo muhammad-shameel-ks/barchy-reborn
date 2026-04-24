@@ -17,8 +17,8 @@ find "$BARCHYREBORN_INSTALL" -type f -name "*.sh" -exec chmod +x {} +
 source "$BARCHYREBORN_INSTALL/helpers/all.sh"
 start_install_log
 
-source "$BARCHYREBORN_INSTALL/preflight/all.sh"
-source "$BARCHYREBORN_INSTALL/packaging/all.sh"
-source "$BARCHYREBORN_INSTALL/config/all.sh"
-source "$BARCHYREBORN_INSTALL/login/all.sh"
-source "$BARCHYREBORN_INSTALL/post-install/all.sh"
+run_logged "$BARCHYREBORN_INSTALL/preflight/all.sh"
+run_logged "$BARCHYREBORN_INSTALL/packaging/all.sh"
+run_logged "$BARCHYREBORN_INSTALL/config/all.sh"
+run_logged "$BARCHYREBORN_INSTALL/login/all.sh"
+run_logged "$BARCHYREBORN_INSTALL/post-install/all.sh"
