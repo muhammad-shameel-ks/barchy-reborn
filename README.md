@@ -15,7 +15,7 @@ Barchyreborn is a lightweight, "no-bloat" Arch Linux Hyprland configuration fram
 To install Barchyreborn on a fresh Arch Linux installation, run the following command:
 
 ```bash
-bash <(curl -sL https://raw.githubusercontent.com/muhammad-shameel-ks/barchy-reborn/master/boot.sh)
+curl -sL https://raw.githubusercontent.com/muhammad-shameel-ks/barchy-reborn/master/boot.sh | bash
 ```
 
 **Requirements:**
