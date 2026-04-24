@@ -10,8 +10,8 @@ export BARCHYREBORN_INSTALL_LOG_FILE="/var/log/barchyreborn-install.log"
 export PATH="$BARCHYREBORN_PATH/bin:$PATH"
 
 # Ensure all scripts are executable
-chmod +x "$BARCHYREBORN_PATH/bin"/*
-find "$BARCHYREBORN_INSTALL" -type f -name "*.sh" -exec chmod +x {} +
+chmod +x "$BARCHYREBORN_PATH/bin"/* 2>/dev/null || true
+find "$BARCHYREBORN_INSTALL" -type f -name "*.sh" -exec chmod +x {} + 2>/dev/null || true
 
 # Install
 source "$BARCHYREBORN_INSTALL/helpers/all.sh"
