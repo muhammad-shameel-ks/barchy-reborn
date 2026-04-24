@@ -34,6 +34,8 @@ git clone "https://github.com/${BARCHYREBORN_REPO}.git" ~/.local/share/barchyreb
 echo -e "\e[32mUsing branch: $BARCHYREBORN_REF\e[0m"
 cd ~/.local/share/barchyreborn
 git fetch origin "${BARCHYREBORN_REF}" && git checkout "${BARCHYREBORN_REF}"
+chmod +x bin/* install.sh
+find install/ -type f -name "*.sh" -exec chmod +x {} +
 cd -
 
 echo -e "\nInstallation starting..."
