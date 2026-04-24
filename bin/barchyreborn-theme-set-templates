@@ -43,6 +43,9 @@ if [[ -f $COLORS_FILE ]]; then
     elif [[ $filename == "waybar-style.css" ]]; then
         output_path="$HOME/.config/waybar/style.css"
         mkdir -p "$(dirname "$output_path")"
+    elif [[ $filename == "mako-config" ]]; then
+        output_path="$HOME/.config/mako/config"
+        mkdir -p "$(dirname "$output_path")"
     else
         output_path="$NEXT_THEME_DIR/$filename"
     fi
