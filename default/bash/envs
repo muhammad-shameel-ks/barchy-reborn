@@ -1,0 +1,3 @@
+# Barchyreborn Environment Variables
+export BARCHYREBORN_PATH=$HOME/.local/share/barchyreborn
+export PATH=$BARCHYREBORN_PATH/bin:$PATH

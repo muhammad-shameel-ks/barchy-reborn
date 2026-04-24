@@ -24,3 +24,8 @@ mkdir -p ~/.config/barchyreborn/themes
 mkdir -p ~/.config/barchyreborn/backgrounds
 mkdir -p ~/.config/barchyreborn/hooks
 mkdir -p ~/.config/barchyreborn/current
+
+# Setup bashrc
+if [[ -f "$BARCHYREBORN_PATH/default/bashrc" ]]; then
+  cp "$BARCHYREBORN_PATH/default/bashrc" "$HOME/.bashrc"
+fi

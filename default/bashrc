@@ -1,0 +1,7 @@
+# If not running interactively, don't do anything (leave this at the top of this file)
+[[ $- != *i* ]] && return
+
+# All the default Barchyreborn aliases and functions
+source ~/.local/share/barchyreborn/default/bash/rc
+
+# Add your own exports, aliases, and functions here.
