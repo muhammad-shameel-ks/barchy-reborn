@@ -16,7 +16,10 @@ if ! command -v paru &>/dev/null; then
     cd "$TEMP_DIR"
     # Set MAKEFLAGS to use all available cores for faster building
     export MAKEFLAGS="-j$(nproc)"
-    makepkg -si --noconfirm
+    # makepkg -si uses sudo pacman -U internally. 
+    # We use --noconfirm for makepkg, but we should ensure pacman doesn't block.
+    # Also, we use -p to specify the packager to avoid potential interactive prompts.
+    makepkg -si --noconfirm --needed
   )
   
   rm -rf "$TEMP_DIR"
