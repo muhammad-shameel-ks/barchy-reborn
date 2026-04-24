@@ -40,7 +40,14 @@ fzf
 
 # Terminal & Launcher
 alacritty
-wofi
+walker
+elephant
+
+# First Run & Security
+gum
+ufw
+reflector
+libqalculate
 
 # Dev Tools
 git

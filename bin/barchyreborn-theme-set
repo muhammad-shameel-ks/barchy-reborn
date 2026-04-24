@@ -54,6 +54,7 @@ fi
 barchyreborn-restart-mako
 barchyreborn-restart-terminal
 barchyreborn-restart-btop
+barchyreborn-restart-walker
 
 # Call hook
 barchyreborn-hook theme-set "$THEME_NAME"

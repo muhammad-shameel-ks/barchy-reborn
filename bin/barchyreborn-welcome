@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# Barchyreborn Welcome & First-Run Wizard
+# Required: gum, ufw, reflector, snapper
+
+SENTINEL="$HOME/.config/barchyreborn/setup_done"
+[[ -f $SENTINEL ]] && exit 0
+
+export GUM_CONFIRM_PROMPT="Continue? "
+export GUM_CONFIRM_SELECTED_BACKGROUND="#61afef"
+
+clear
+gum style \
+	--foreground 212 --border-foreground 212 --border double \
+	--align center --width 50 --margin "1 2" --padding "2 4" \
+	"Welcome to Barchyreborn" "The Lean Arch Experience"
+
+gum confirm "Ready to start your initial setup?" || exit 0
+
+# Step 1: Network
+if ! nmcli -t -f CONNECTED g | grep -q "yes"; then
+  gum style --foreground 118 "Detecting Network..."
+  nmcli device wifi rescan
+  WIFI=$(nmcli -f SSID,SIGNAL device wifi list | tail -n +2 | gum table --columns "SSID,SIGNAL" | awk '{print $1}')
+  if [[ -z $WIFI ]]; then
+    gum style --foreground 196 "No WiFi selected. You can configure it later via nmtui."
+  else
+    PASS=$(gum input --placeholder "Password for $WIFI" --password)
+    nmcli device wifi connect "$WIFI" password "$PASS"
+  fi
+fi
+
+# Step 2: Mirrors
+if gum confirm "Optimize pacman mirrors for your location?"; then
+  gum spin --spinner dot --title "Finding fastest mirrors..." -- \
+    sudo reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+fi
+
+# Step 3: Security
+if gum confirm "Enable UFW (Firewall)?"; then
+  sudo ufw default deny incoming
+  sudo ufw default allow outgoing
+  sudo ufw enable
+  gum style --foreground 118 "Firewall enabled."
+fi
+
+# Step 4: Persistence
+if gum confirm "Initialize Snapper (Btrfs Snapshots)?"; then
+  if ! sudo snapper list-configs | grep -q "root"; then
+    sudo snapper -c root create-config /
+  fi
+  sudo snapper create --description "Post-install baseline"
+  gum style --foreground 118 "Snapshot created."
+fi
+
+# Step 5: Finalize
+touch "$SENTINEL"
+
+gum style \
+	--foreground 212 --border-foreground 212 --border double \
+	--align center --width 50 --margin "1 2" --padding "2 4" \
+	"Setup Complete!" "Launch the Theme Selector next."
+
+# Trigger first theme selection
+barchyreborn-launch-walker -m menus:barchyrebornthemes
