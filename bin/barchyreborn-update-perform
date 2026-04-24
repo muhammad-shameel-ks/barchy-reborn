@@ -31,14 +31,26 @@ cp "$BARCHYREBORN_PATH/default/mako/core.ini" "$HOME/.config/mako/" 2>/dev/null 
 cp "$BARCHYREBORN_PATH/default/walker/config.toml" "$HOME/.config/walker/" 2>/dev/null || true
 cp "$BARCHYREBORN_PATH/default/elephant/menus/barchyreborn_themes.lua" "$HOME/.config/elephant/menus/" 2>/dev/null || true
 
-# Fix permissions on config files (remove executable bit if it was accidentally set)
+# Fix permissions on config files
 chmod -x "$HOME/.config/hypr/hyprland.conf" "$HOME/.config/hypr/input.conf" "$HOME/.config/hypr/looknfeel.conf" 2>/dev/null || true
+
+# Ensure services are started correctly in user session
+export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+export WAYLAND_DISPLAY="wayland-1"
 
 # Force reload Hyprland
 hyprctl reload &>/dev/null || true
 
 # Re-apply theme to generate CSS
 barchyreborn-theme-refresh
+
+# Ensure Waybar and Mako are actually running
+if ! pgrep -x waybar >/dev/null; then
+    waybar &>/dev/null &
+fi
+if ! pgrep -x mako >/dev/null; then
+    mako &>/dev/null &
+fi
 
 barchyreborn-hook post-update
 
